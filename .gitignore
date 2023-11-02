@@ -3,3 +3,5 @@
 /frontend-app/node_modules
 
 /frontend-app/build
+
+/backend/.env
