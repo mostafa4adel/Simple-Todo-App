@@ -11,6 +11,9 @@
   "dependencies": {
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
+    "@react-native-async-storage/async-storage": "^1.19.4",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
     "@types/material-ui": "^0.21.13",
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",

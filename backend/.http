@@ -1,0 +1,8 @@
+
+
+PUT http://localhost:3006/api/user/
+Content-Type: application/json,
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MQ.fGaUARI99DDadCuNm4ZUhaB6Bpx8KiJsnCLTisJ0bp4
+{
+    "username":"test4"
+}
