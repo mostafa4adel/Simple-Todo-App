@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginScreen from './src/screens/LoginScreen';
 import TodoListScreen from './src/screens/TodoListScreen';
 import { useNavigation } from '@react-navigation/native';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 const Stack = createStackNavigator();
 
@@ -29,13 +30,15 @@ const CheckTokenAndNavigate = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <CheckTokenAndNavigate />
-      <Stack.Navigator initialRouteName="StartPage">
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="TodoList" component={TodoListScreen} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <CheckTokenAndNavigate />
+        <Stack.Navigator initialRouteName="StartPage">
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="TodoList" component={TodoListScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 

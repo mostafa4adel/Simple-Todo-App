@@ -16,12 +16,12 @@ export class TODO_Model {
         return TODO_Model.instance;
     }
 
-    create_todo = async (title: string, description: string, date:Date, isDone:boolean ,userid: number) => {
+    create_todo = async (title: string, description: string, date:string, isDone:boolean ,userid: number) => {
         const todo = await prisma.todo.create({
             data: {
                 title: title,
                 description: description,
-                date: date,
+                date:new Date(date),
                 isDone: isDone,
                 userId: userid
             }
@@ -35,16 +35,19 @@ export class TODO_Model {
                 userId: userid
             }
         });
+        
         return todo;
     }
 
     delete_todo = async (id: number,userid:number) => {
-        const todo = prisma.todo.findUnique({
+
+        const todo = await prisma.todo.findUnique({
             where: {
                 id: id,
                 userId: userid
             }
         });
+    
         if (!todo) {
             return null;
         }
@@ -57,7 +60,7 @@ export class TODO_Model {
         return todo;
     }
 
-    update_todo = async (id: number,userid:number,title:string,description:string,date:Date) => {
+    update_todo = async (id: number,userid:number,title:string,description:string,date:string) => {
         const todo = prisma.todo.findUnique({
             where: {
                 id: id,
@@ -74,9 +77,33 @@ export class TODO_Model {
             data: {
                 title: title,
                 description: description,
-                date: date
+                date: new Date(date),
+                userId: userid
             }
         });
+        return todo;
+    }
+
+    toggle_todo_status = async (id: number,userid:number) => {
+        const todo = await prisma.todo.findUnique({
+            where: {
+                id: id,
+                userId: userid
+            }
+        });
+        if (!todo) {
+            return null;
+        }
+
+        await prisma.todo.update({
+            where: {
+                id: id
+            },
+            data: {
+                isDone: !todo.isDone
+            }
+        });
+
         return todo;
     }
 }

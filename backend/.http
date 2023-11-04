@@ -1,8 +1,11 @@
 
 
-PUT http://127.0.0.1:3006/api/user
+Post http://127.0.0.1:3006/api/todo
 Content-Type: application/json,
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MQ.fGaUARI99DDadCuNm4ZUhaB6Bpx8KiJsnCLTisJ0bp4
-{
-    "username":"test4"
+Authorization: Bearer bGiJIUzI1NiJ9.MQ.fGaUARI99DDadCuNm4ZUhaB6Bpx8KiJsnCLTisJ0bp4
+body: {
+    "title":"test4",
+    "description":"test4",
+    "date":"2019-12-12",
+    "isDone":false,
 }

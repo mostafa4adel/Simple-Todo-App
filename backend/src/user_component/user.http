@@ -1,0 +1,9 @@
+
+POST http://192.168.1.11:3006/api/user/login 
+Content-Type: application/json
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.Ng.XTZgoevJLiZbzZnMGn8Xuw__69i6-awMVBDc6seZt5o'
+
+{
+    "username": "Test1",
+    "password": "test"
+}

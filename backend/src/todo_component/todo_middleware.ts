@@ -12,6 +12,7 @@ const todo_schema = Joi.object({
 
 export const validate_todo = (req: Request, res: Response, next: NextFunction) => {
     const { error } = todo_schema.validate({title:req.body.title, description:req.body.description,date:req.body.date,isDone:req.body.isDone});
+    
     if (error) {
         return res.status(400).json({ message: error.details[0].message });
     }
@@ -21,7 +22,8 @@ export const validate_todo = (req: Request, res: Response, next: NextFunction) =
 export const validate_token = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1];
     const decoded = decodeToken(token as string);
-    if (decoded == null) {
+    
+    if (isNaN(decoded) ) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     

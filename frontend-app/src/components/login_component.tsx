@@ -1,29 +1,46 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, Text, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, Text, View } from 'react-native';
 import { Button, TextInput, Snackbar } from 'react-native-paper';
 import { BACKEND_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('window');
+
+const theme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#6200ee',
+        accent: '#03dac4',
+        background: '#f5f5f5',
+        text: '#6200ee',
+        placeholder: '#6200ee',
+    },
+};
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: height * 0.3,
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,
+        backgroundColor: '#f5f5f5',
     },
     title: {
         marginBottom: 16,
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
+        color: '#6200ee',
     },
     input: {
         marginBottom: 16,
+        backgroundColor: '#fff',
     },
     button: {
         marginBottom: 16,
+        backgroundColor: '#6200ee',
     },
 });
 
@@ -90,7 +107,9 @@ const LoginComponent: React.FC = () => {
     };
 
     return (
-        <ScrollView style={styles.container}>
+        
+        <View style={styles.container}>
+            
             <Text style={styles.title}>Login</Text>
             <TextInput
                 label="Username"
@@ -98,6 +117,7 @@ const LoginComponent: React.FC = () => {
                 onChangeText={setUsername}
                 style={styles.input}
                 maxLength={10}
+                mode="outlined"
             />
             <TextInput
                 label="Password"
@@ -106,6 +126,7 @@ const LoginComponent: React.FC = () => {
                 onChangeText={setPassword}
                 style={styles.input}
                 maxLength={10}
+                mode="outlined"
             />
             <Button
                 mode="contained"
@@ -128,7 +149,7 @@ const LoginComponent: React.FC = () => {
             >
                 {snackbarMessage}
             </Snackbar>
-        </ScrollView>
+        </View>
     );
 };
 

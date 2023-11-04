@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTodo, getAllTodo, deleteTodo, updateTodo } from './todo_handler';
+import { createTodo, getAllTodo, deleteTodo, updateTodo, toggleTodo } from './todo_handler';
 import { validate_todo, validate_token } from './todo_middleware';
 
 
@@ -15,6 +15,9 @@ todoRouter.get('/', validate_token, getAllTodo);
 todoRouter.delete('/', validate_token, deleteTodo);
 
 // Update a todo by ID
-todoRouter.put('/', validate_token, updateTodo);
+todoRouter.put('/', validate_token, validate_todo, updateTodo);
+
+todoRouter.put('/:id', validate_token, toggleTodo);
+
 
 export default todoRouter;

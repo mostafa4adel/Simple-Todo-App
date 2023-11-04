@@ -1,28 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Card } from 'react-native-paper';
 import TodoComponent, { Todo } from './todo_component';
 
 interface Props {
     todos: Todo[];
+    onDeleteTodo: (id: number) => void;
 }
 
-const TodoListComponent: React.FC<Props> = ({ todos }) => {
+const TodoListComponent: React.FC<Props> = ({ todos , onDeleteTodo }) => {
+    const [todoList, setTodoList] = useState<Todo[]>(todos);
+
+    useEffect(() => {
+        setTodoList(todos); // Update todoList when the todos prop changes
+    }, [todos]); // Add todos as a dependency to the useEffect
+
     const renderItem = ({ item }: { item: Todo }) => (
-        <Card style={{ margin: 8, elevation: 2 }}>
-            <TodoComponent
-                id={item.id}
-                title={item.title}
-                description={item.description}
-                date={item.date}
-                completed={item.completed}
-            />
-        </Card>
+        <TodoComponent
+            
+            todo={
+                {
+                    id: item.id,
+                    title: item.title,
+                    description: item.description,
+                    date: item.date,
+                    isDone: item.isDone
+                }
+            }
+            deleteTodo={onDeleteTodo}
+        />
     );
 
     return (
         <FlatList
-            data={todos}
+            style={{ width: '100%' }}
+            data={todoList}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
         />
