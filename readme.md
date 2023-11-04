@@ -1,5 +1,3 @@
-Here's the corrected version of your README in raw format:
-
 ```markdown
 # Todo App
 
