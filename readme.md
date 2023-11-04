@@ -38,14 +38,14 @@ Before you get started, make sure you have the following software installed:
 3. Install the server dependencies:
 
    ```bash
-   cd server
+   cd ./backend
    npm install
    ```
 
 4. Install the client dependencies:
 
    ```bash
-   cd ../client
+   cd ./frontend-app
    npm install
    ```
 
