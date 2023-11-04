@@ -68,3 +68,44 @@ bash
 Copy code
 expo start
 Open the Expo Go app on your mobile device, scan the QR code, and you'll be able to use the Todo app.
+
+
+
+## Code Syntax Highlighting with Prism.js
+
+This project utilizes [Prism.js](https://prismjs.com/) to provide code syntax highlighting for code blocks or other content in the app. Prism.js is a lightweight and highly customizable syntax highlighter that supports various programming languages and styles.
+
+### How to Use Prism.js
+
+If you want to include code syntax highlighting in your project, follow these steps:
+
+1. Include the Prism.js CSS and JavaScript files in your project. You can download them from the [official Prism.js website](https://prismjs.com/download.html) or include them from a Content Delivery Network (CDN).
+
+   ```html
+   <!-- Include Prism.js CSS in your HTML file -->
+   <link rel="stylesheet" href="path/to/prism.css">
+
+   <!-- Include Prism.js JavaScript in your HTML file -->
+   <script src="path/to/prism.js"></script>
+Add code blocks to your app's content using the following format:
+
+html
+Copy code
+<pre><code class="language-javascript">
+// Your code here
+</code></pre>
+Replace "language-javascript" with the appropriate language class for your code block. Prism.js supports a wide range of languages, such as javascript, python, html, and more.
+
+When you run your app, Prism.js will automatically apply syntax highlighting to the code blocks based on the specified language class.
+
+Customizing Prism.js
+You can customize Prism.js to match the theme and style of your app by modifying the CSS or using one of the available themes. Prism.js provides extensive documentation and tools for customization. Feel free to explore the Prism.js documentation for more information on customization.
+
+By incorporating Prism.js into your project, you can make your code examples and technical content more visually appealing and easier to read.
+
+Copy code
+
+With this section, users will learn about how Prism.js is used in your project, how to include it, and how to use it for code syntax highlighting. Additionally, they will have guidance on customizing Prism.js to fit the project's theme and style.
+
+
+
