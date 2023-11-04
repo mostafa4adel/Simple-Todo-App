@@ -65,7 +65,7 @@ Before you get started, make sure you have the following software installed:
    npm start
    ```
 
-The server should now be running at http://localhost:3006.
+The server should now be running at http://YOUR_PUBLIC_IP:3006.
 
 ### Running the Expo Client
 
