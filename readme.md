@@ -82,6 +82,3 @@ The server should now be running at http://localhost:3006.
    ```
 
 3. Open the Expo Go app on your mobile device, scan the QR code, and you'll be able to use the Todo app.
-```
-
-This format is ready to be used as a Markdown file on your GitHub repository.
