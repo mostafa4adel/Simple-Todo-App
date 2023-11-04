@@ -56,7 +56,7 @@ Before you get started, make sure you have the following software installed:
 1. Go to the `server` directory:
 
    ```bash
-   cd server
+   cd ./backend
    ```
 
 2. Start the Node.js server:
@@ -72,7 +72,7 @@ The server should now be running at http://localhost:3006.
 1. Go to the `client` directory:
 
    ```bash
-   cd ../client
+   cd ./frontend-app
    ```
 
 2. Start the Expo client:
