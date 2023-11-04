@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LoginPage from './src/screens/LoginPage';
+import LoginScreen from './src/screens/LoginScreen';
 import TodoListScreen from './src/screens/TodoListScreen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,8 +32,8 @@ const App = () => {
     <NavigationContainer>
       <CheckTokenAndNavigate />
       <Stack.Navigator initialRouteName="StartPage">
-        <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="TodoList" component={TodoListScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TodoList" component={TodoListScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
