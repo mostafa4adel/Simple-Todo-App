@@ -1,4 +1,4 @@
-```markdown
+
 # Todo App
 
 This is a simple Todo app created using Expo and Node.js. It allows you to create, update, and delete tasks in a to-do list. This project is a great starting point for learning how to build mobile applications with Expo and a Node.js backend.
