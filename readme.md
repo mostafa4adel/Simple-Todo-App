@@ -32,7 +32,7 @@ Before you get started, make sure you have the following software installed:
 2. Change into the project directory:
 
    ```bash
-   cd todo-app
+   cd Simple-Todo-App
    ```
 
 3. Install the server dependencies:
