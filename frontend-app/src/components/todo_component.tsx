@@ -169,10 +169,9 @@ export default function TodoComponent(props: Props) {
                     <>
                         <Card.Title titleStyle={{ fontSize: 24 }} title={title} />
                         <Card.Content>
-                            <Text style={styles.text}>Description:</Text>
                             <Paragraph style={styles.text}>{description}</Paragraph>
                             <View style={styles.checkboxContainer}>
-                                <Text style={styles.dateText }>Date:</Text>
+                                <Text style={styles.dateText }>Due Date:</Text>
                                 <Paragraph style={styles.text}>{strDate.split('T')[0]}</Paragraph>
                             </View>
                             <View style={styles.checkboxContainer}>

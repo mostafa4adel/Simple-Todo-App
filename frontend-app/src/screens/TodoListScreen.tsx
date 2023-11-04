@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper'; // Import the FAB component
+import { View, StyleSheet, Dimensions, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import TodoForm from '../components/todo_form_component'; // Import the TodoForm component
-import TodoListComponent from '../components/todo_list_component'; // Import the TodoListComponent component
-import { Todo } from '../components/todo_component'; // Import the TodoProps interface
-import { Dimensions } from 'react-native';
-import { Modal } from 'react-native';
+import TodoForm from '../components/todo_form_component';
+import TodoListComponent from '../components/todo_list_component';
+import { Todo } from '../components/todo_component';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BACKEND_URL } from '@env';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-
+import { DefaultTheme, Provider as PaperProvider, Button, FAB, Menu } from 'react-native-paper';
 
 const { height } = Dimensions.get('window');
 
@@ -30,6 +26,14 @@ const theme = {
 const TodoListScreen: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]); // Initialize an empty array for todos
     const [modalVisible, setModalVisible] = useState(false);
+    const [sort, setSort] = useState('date');
+    const [filter, setFilter] = useState('all');
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const navigation = useNavigation();
+
+    const openMenu = () => setMenuVisible(true);
+    const closeMenu = () => setMenuVisible(false);
 
     // Function to add a new todo
     const addTodo = (id: number, title: string, description: string, date: string) => {
@@ -43,10 +47,40 @@ const TodoListScreen: React.FC = () => {
         setTodos([...todos, newTodo]);
     };
 
+    const getSortedAndFilteredTodos = () => {
+        let sortedAndFilteredTodos = [...todos];
+
+        // Sort todos
+        if (sort === 'date') {
+            sortedAndFilteredTodos.sort((a, b) => a.date.localeCompare(b.date));
+        } else if (sort === 'title') {
+            sortedAndFilteredTodos.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (sort === 'description') {
+            sortedAndFilteredTodos.sort((a, b) => a.title.localeCompare(b.description));
+        }
+
+        // Filter todos
+        if (filter === 'completed') {
+            sortedAndFilteredTodos = sortedAndFilteredTodos.filter(todo => todo.isDone);
+        } else if (filter === 'notCompleted') {
+            sortedAndFilteredTodos = sortedAndFilteredTodos.filter(todo => !todo.isDone);
+        }
+
+        return sortedAndFilteredTodos;
+    };
+
+    const logout = async () => {
+        // Clear the token from AsyncStorage
+        await AsyncStorage.removeItem('token');
+
+        navigation.navigate('Login' as never);
+    };
+
     const deleteTodo = (id: number) => {
         const newTodos = todos.filter((todo) => todo.id !== id);
         setTodos(newTodos);
     };
+
 
     useEffect(() => {
         const fetchTodos = async () => {
@@ -72,7 +106,7 @@ const TodoListScreen: React.FC = () => {
                         todos.push(newTodo);
                     });
                     setTodos(todos);
-                    
+
                 })
                 .catch((error) => {
                     console.error(error);
@@ -81,42 +115,64 @@ const TodoListScreen: React.FC = () => {
         fetchTodos();
     }, []);
 
-    
+
 
     return (
         <PaperProvider theme={theme}>
-        <View style={styles.container}>
-            <Text style={styles.title}>Todo List</Text>
+            <View style={styles.container}>
+                <View style={styles.filterContainer}>
+                    <Menu
+                        visible={menuVisible}
+                        onDismiss={closeMenu}
+                        anchor={
+                            <Button onPress={openMenu}>
+                                Sort by {sort}
+                            </Button>
+                        }
+                    >
+                        <Menu.Item onPress={() => { setSort('date'); closeMenu(); }} title="Sort by Date" />
+                        <Menu.Item onPress={() => { setSort('title'); closeMenu(); }} title="Sort by Title" />
+                        <Menu.Item onPress={() => { setSort('description'); closeMenu(); }} title="Sort by Description" />
+                    </Menu>
 
-            {/* Render the list of todos using TodoListComponent */}
-            <TodoListComponent todos={todos} onDeleteTodo={deleteTodo} />
+                </View>
+                {/* Render the list of todos using TodoListComponent */}
+                <TodoListComponent todos={getSortedAndFilteredTodos()} onDeleteTodo={deleteTodo} />
 
-            {/* Render the FAB (Floating Action Button) to open the TodoForm */}
-            <FAB
-                style={styles.fab}
-                icon="plus"
-                onPress={() => setModalVisible(true)}
-            />
+                {/* Render the FAB (Floating Action Button) to open the TodoForm */}
+                <FAB
+                    style={styles.fab}
+                    icon="plus"
+                    onPress={() => setModalVisible(true)}
+                />
 
-            {/* Render the Modal with the TodoForm */}
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <TodoForm onCancel={() => setModalVisible(false)} addTodo={addTodo} />
-            </Modal>
-        </View>
+                {/* Render the Modal with the TodoForm */}
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <TodoForm onCancel={() => setModalVisible(false)} addTodo={addTodo} />
+                </Modal>
+            </View>
         </PaperProvider>
     );
 };
 
 const styles = StyleSheet.create({
+    
+    filterContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+
     container: {
         flex: 1,
-        paddingTop: height * 0.1,
-        paddingBottom: height * 0.1,
+        paddingTop: height * 0.03,
+        paddingBottom: height * 0.03,
         justifyContent: 'center',
         alignItems: 'center',
 
@@ -135,9 +191,9 @@ const styles = StyleSheet.create({
     fab: {
         position: 'absolute',
         backgroundColor: '#fff',
-        marginBottom: 50,
-        marginRight: 50,
-        right: 0,
+        marginBottom: 150,
+        marginLeft: 50,
+        left: 0,
         bottom: 0,
     },
 });
